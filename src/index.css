@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PriceLens Design System - Teal/Emerald themed for trust and savings */
+
+@layer base {
+  :root {
+    --background: 160 20% 99%;
+    --foreground: 170 50% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 170 50% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 170 50% 10%;
+
+    --primary: 166 76% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 30% 96%;
+    --secondary-foreground: 170 50% 15%;
+
+    --muted: 160 20% 95%;
+    --muted-foreground: 170 20% 45%;
+
+    --accent: 38 92% 55%;
+    --accent-foreground: 38 92% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 20% 88%;
+    --input: 160 20% 88%;
+    --ring: 166 76% 38%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    --sale: 0 84% 55%;
+    --sale-foreground: 0 0% 100%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(166, 76%, 38%) 0%, hsl(152, 68%, 42%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(166, 76%, 38%) 0%, hsl(180, 60%, 30%) 50%, hsl(166, 76%, 38%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(38, 92%, 55%) 0%, hsl(28, 90%, 50%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(160, 30%, 98%) 100%);
+    
+    --shadow-sm: 0 1px 2px 0 hsl(170 50% 10% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(170 50% 10% / 0.08), 0 2px 4px -1px hsl(170 50% 10% / 0.04);
+    --shadow-lg: 0 10px 25px -3px hsl(166 76% 38% / 0.12), 0 4px 6px -2px hsl(170 50% 10% / 0.05);
+    --shadow-xl: 0 20px 40px -5px hsl(166 76% 38% / 0.15), 0 8px 16px -4px hsl(170 50% 10% / 0.08);
+    --shadow-glow: 0 0 30px hsl(166 76% 38% / 0.3);
+
+    --sidebar-background: 160 20% 98%;
+    --sidebar-foreground: 170 50% 20%;
+    --sidebar-primary: 166 76% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 25% 94%;
+    --sidebar-accent-foreground: 170 50% 15%;
+    --sidebar-border: 160 20% 90%;
+    --sidebar-ring: 166 76% 38%;
+  }
+
+  .dark {
+    --background: 170 30% 6%;
+    --foreground: 160 20% 98%;
+
+    --card: 170 30% 8%;
+    --card-foreground: 160 20% 98%;
+
+    --popover: 170 30% 8%;
+    --popover-foreground: 160 20% 98%;
+
+    --primary: 166 70% 50%;
+    --primary-foreground: 170 50% 5%;
+
+    --secondary: 170 25% 15%;
+    --secondary-foreground: 160 20% 95%;
+
+    --muted: 170 25% 15%;
+    --muted-foreground: 160 15% 60%;
+
+    --accent: 38 85% 50%;
+    --accent-foreground: 38 92% 95%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 170 25% 18%;
+    --input: 170 25% 18%;
+    --ring: 166 70% 50%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --sale: 0 75% 50%;
+    --sale-foreground: 0 0% 100%;
+
+    --sidebar-background: 170 30% 8%;
+    --sidebar-foreground: 160 20% 95%;
+    --sidebar-primary: 166 70% 50%;
+    --sidebar-primary-foreground: 170 50% 5%;
+    --sidebar-accent: 170 25% 12%;
+    --sidebar-accent-foreground: 160 20% 95%;
+    --sidebar-border: 170 25% 15%;
+    --sidebar-ring: 166 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50;
+    box-shadow: var(--shadow-md);
+  }
+
+  .hero-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .sale-badge {
+    @apply bg-sale text-sale-foreground font-bold px-2 py-0.5 rounded-full text-xs;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .map-container {
+    @apply rounded-xl overflow-hidden border border-border;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .distance-slider {
+    @apply accent-primary;
+  }
+
+  .price-tag {
+    @apply font-bold text-primary text-xl;
+  }
+
+  .original-price {
+    @apply text-muted-foreground line-through text-sm;
+  }
+
+  .shop-marker {
+    @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg;
+  }
+
+  .search-input {
+    @apply w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  font-family: inherit;
+  border-radius: var(--radius);
+}
+
+.leaflet-popup-content-wrapper {
+  @apply bg-card text-card-foreground rounded-xl shadow-lg border border-border;
+}
+
+.leaflet-popup-tip {
+  @apply bg-card;
+}
+
+.custom-marker-icon {
+  @apply bg-primary rounded-full flex items-center justify-center shadow-lg;
+  width: 32px;
+  height: 32px;
+}
