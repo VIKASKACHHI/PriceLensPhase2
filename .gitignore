@@ -1,6 +1,5 @@
 # Logs
 logs
-supabase
 .env
 *.log
 npm-debug.log*
