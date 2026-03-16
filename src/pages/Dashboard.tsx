@@ -17,7 +17,7 @@ import { SHOP_CATEGORIES } from '@/lib/constants';
 import { Database } from '@/integrations/supabase/types';
 import { StockBadge } from '@/components/inventory/StockBadge';
 import { Badge } from '@/components/ui/badge';
-import { CompetitorAnalysis, CompetitorAlert } from '@/components/dashboard/Competitoranalysis';
+import { CompetitorAnalysis, CompetitorAlert } from '@/components/dashboard/CompetitorAnalysis';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type ShopCategory = Database['public']['Enums']['shop_category'];
