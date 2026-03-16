@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Store, Package, Plus, Edit2, Trash2, Bell, BellOff, MapPin, Phone, Loader2, Calendar, Gift, Percent } from 'lucide-react';
+import { Store, Package, Plus, Edit2, Trash2, Bell, BellOff, MapPin, Phone, Loader2, Calendar, Gift, Percent, AlertTriangle } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,6 +17,8 @@ import { SHOP_CATEGORIES } from '@/lib/constants';
 import { Database } from '@/integrations/supabase/types';
 import { StockBadge } from '@/components/inventory/StockBadge';
 import { Badge } from '@/components/ui/badge';
+import { CompetitorAnalysis, CompetitorAlert } from '@/components/dashboard/Competitoranalysis';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type ShopCategory = Database['public']['Enums']['shop_category'];
 type StockStatus = Database['public']['Enums']['stock_status'];
@@ -105,6 +107,12 @@ export default function Dashboard() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productDialogOpen, setProductDialogOpen] = useState(false);
   const [shopDialogOpen, setShopDialogOpen] = useState(false);
+  const [competitorAlerts, setCompetitorAlerts] = useState<Map<string, CompetitorAlert>>(new Map());
+  const [highlightProductId, setHighlightProductId] = useState<string | null>(null);
+
+  const handleAlertsLoaded = useCallback((alerts: Map<string, CompetitorAlert>) => {
+    setCompetitorAlerts(alerts);
+  }, []);
 
   // Redirect if not shopkeeper
   useEffect(() => {
@@ -903,6 +911,12 @@ export default function Dashboard() {
                                 <Gift className="h-3 w-3" />
                                 Offer
                               </Badge>
+                             )}
+                            {competitorAlerts.has(product.id) && (
+                              <Badge variant="destructive" className="gap-1 cursor-pointer" onClick={() => setHighlightProductId(product.id)}>
+                                <AlertTriangle className="h-3 w-3" />
+                                Overpriced
+                              </Badge>
                             )}
                             {shop.has_general_discount && (shop.apply_discount_to_all || product.use_shop_discount) && (
                               <Badge variant="outline" className="gap-1 border-primary text-primary">
@@ -972,6 +986,19 @@ export default function Dashboard() {
                 )}
               </CardContent>
             </Card>
+          )}
+
+          {/* Competitor Price Analysis */}
+          {shop && products.length > 0 && (
+            <div className="mt-8">
+              <CompetitorAnalysis
+                shopId={shop.id}
+                shopLocation={{ lat: shop.latitude, lng: shop.longitude }}
+                products={products}
+                onAlertsLoaded={handleAlertsLoaded}
+                highlightProductId={highlightProductId}
+              />
+            </div>
           )}
         </div>
       </div>
